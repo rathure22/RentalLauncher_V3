@@ -1,9 +1,3 @@
-package com.RentalLauncher.app
-
-import android.app.Activity
-import android.content.Intent
-import android.media.projection.MediaProjectionManager
-import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContracts
 
 /**
@@ -12,7 +6,7 @@ import androidx.activity.result.contract.ActivityResultContracts
  * MyService. MediaProjection permission can only be requested from an
  * Activity, so MyService launches this when it needs to start a share.
  */
-class ScreenCaptureActivity : Activity() {
+class ScreenCaptureActivity : ComponentActivity() {
 
     private val launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         MyService.deliverCaptureResult(result.resultCode, result.data)
