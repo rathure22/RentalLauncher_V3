@@ -1,0 +1,58 @@
+SCREEN SHARE PATCH — what changed and what you still need to do
+=================================================================
+
+WHY: the admin web dashboard (RentalLauncher Admin Dashboard) expects the
+phone app to do MediaProjection screen capture + WebRTC, signaled over
+Firebase at /live/{deviceId}/... . The phone app only had location
+tracking + remote lock — no WebRTC/MediaProjection code at all, even
+though the WebRTC library was already in build.gradle.kts, unused.
+
+FILES CHANGED
+- app/src/main/java/com/RentalLauncher/app/MyService.kt
+    - kept the existing LOCATE / LOCK (location + admin-lock) feature
+    - now also writes top-level devices/{id}/name, model, online,
+      lastSeen (the fields the dashboard's normalizeDevices() reads;
+      previously only nested status/online was written, so the
+      dashboard could never show a device as online or named)
+    - new: listens to live/{id}/command ("start"/"stop"), live/{id}/offer,
+      live/{id}/adminIce, and answers with live/{id}/answer +
+      live/{id}/phoneIce, matching src/lib/firebase.ts and
+      live-stage.tsx in the dashboard exactly
+- app/src/main/java/com/RentalLauncher/app/ScreenCaptureActivity.kt (new)
+    - transparent activity that shows the system screen-capture consent
+      dialog (required: that permission can only be requested from an
+      Activity, not a background Service) and hands the result back to
+      MyService
+- app/src/main/AndroidManifest.xml
+    - added FOREGROUND_SERVICE_MEDIA_PROJECTION permission
+    - MyService foregroundServiceType is now "location|mediaProjection"
+    - registered ScreenCaptureActivity
+- database.rules.json
+    - added rules for /live/{deviceId}/* mirroring the existing
+      /devices pattern
+
+STILL TO DO ON YOUR SIDE
+1. In database.rules.json, replace every 'PUT_ADMIN_UID_HERE' with your
+   real Firebase Auth admin UID (same as before — this file was already
+   a template, not applied automatically to your live project).
+2. Publish the updated rules in the Firebase console (Realtime Database
+   → Rules), or your dashboard's "Connect"/"Sign in" and the phone's
+   screen share will fail with a permission error.
+3. Build via the existing GitHub Actions workflow (push to main, or run
+   it manually) the same way as before — nothing changed there.
+4. On first "start" command from the dashboard, the phone will show the
+   system "Start recording or casting?" dialog. The rental device user
+   has to tap "Start now" — there is no way to skip this prompt, it's an
+   Android OS requirement for screen capture.
+5. This code has NOT been compiled or run on a device — I don't have an
+   Android SDK/emulator available here. Please build it and test one
+   real "Connect" from the dashboard against one real phone before
+   relying on it. If `assembleDebug` reports an error, send me the
+   error text and I'll fix it.
+
+NOT CHANGED
+- The LOCATE / LOCK flow (devices/{id}/command = "LOCATE" or "LOCK") is
+  untouched and still works as before, including after reboot.
+- No audio is captured/sent (video only). The dashboard's audio
+  transceiver will simply stay empty; that's fine, it doesn't block the
+  video connection.

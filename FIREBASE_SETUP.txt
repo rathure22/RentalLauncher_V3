@@ -1,0 +1,31 @@
+YOUR FIREBASE WIRING
+
+Firebase Console:
+1. Create/use your own Firebase project.
+2. Add Android app package: com.RentalLauncher.app
+3. Download google-services.json.
+4. Put it at: app/google-services.json
+5. Uncomment id("com.google.gms.google-services") in app/build.gradle.kts.
+
+Realtime Database structure used:
+devices/
+  ANDROID_ID/
+    command: "LOCATE" or "LOCK"
+    status/
+      online
+      latitude
+      longitude
+      accuracy
+      lastUpdate
+
+The supplied .proto schema was not available, so rental_device.proto here is a NEW
+compatible schema based on the fields referenced by the Kotlin source, not a claim
+that it is your original backend schema.
+
+
+BUILD CONFIGURATION
+- Google Services Gradle plugin enabled.
+- Firebase BoM 35.0.0.
+- Firebase Authentication dependency added.
+- Firebase Realtime Database dependency uses firebase-database (not deprecated KTX module).
+- The supplied google-services.json is installed at app/google-services.json.

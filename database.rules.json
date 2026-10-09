@@ -1,0 +1,44 @@
+{
+  "rules": {
+    "devices": {
+      "$deviceId": {
+        "command": {
+          ".read": "auth != null",
+          ".write": "auth != null && auth.uid === 'PUT_ADMIN_UID_HERE'"
+        },
+        "status": {
+          ".read": "auth != null && auth.uid === 'PUT_ADMIN_UID_HERE'",
+          ".write": "auth != null"
+        },
+        "name": { ".read": "auth != null && auth.uid === 'PUT_ADMIN_UID_HERE'", ".write": "auth != null" },
+        "model": { ".read": "auth != null && auth.uid === 'PUT_ADMIN_UID_HERE'", ".write": "auth != null" },
+        "online": { ".read": "auth != null && auth.uid === 'PUT_ADMIN_UID_HERE'", ".write": "auth != null" },
+        "lastSeen": { ".read": "auth != null && auth.uid === 'PUT_ADMIN_UID_HERE'", ".write": "auth != null" }
+      }
+    },
+    "live": {
+      "$deviceId": {
+        "command": {
+          ".read": "auth != null",
+          ".write": "auth != null && auth.uid === 'PUT_ADMIN_UID_HERE'"
+        },
+        "offer": {
+          ".read": "auth != null",
+          ".write": "auth != null && auth.uid === 'PUT_ADMIN_UID_HERE'"
+        },
+        "adminIce": {
+          ".read": "auth != null",
+          ".write": "auth != null && auth.uid === 'PUT_ADMIN_UID_HERE'"
+        },
+        "answer": {
+          ".read": "auth != null && auth.uid === 'PUT_ADMIN_UID_HERE'",
+          ".write": "auth != null"
+        },
+        "phoneIce": {
+          ".read": "auth != null && auth.uid === 'PUT_ADMIN_UID_HERE'",
+          ".write": "auth != null"
+        }
+      }
+    }
+  }
+}

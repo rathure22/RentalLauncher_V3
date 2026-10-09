@@ -1,0 +1,5 @@
+<resources>
+<string name="app_name">RentalLauncher</string>
+<string name="device_admin_label">Rental Device Protection</string>
+<string name="device_admin_description">Device protection for an authorized rental device.</string>
+</resources>

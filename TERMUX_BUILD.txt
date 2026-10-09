@@ -1,0 +1,22 @@
+RENTALLAUNCHER - TERMUX BUILD
+
+Project: com.RentalLauncher.app
+Firebase project: rentallauncher-1447c
+
+1) Install build tools in Termux:
+   pkg update
+   pkg install openjdk-17 gradle unzip
+
+2) Build:
+   cd ~/RentalLauncher
+   chmod +x gradlew
+   ./gradlew assembleDebug
+
+3) APK:
+   app/build/outputs/apk/debug/app-debug.apk
+
+IMPORTANT:
+- app/google-services.json is already included.
+- Firebase Authentication and Realtime Database dependencies are included.
+- The app code still needs Firebase Auth sign-in before authenticated Realtime Database rules can be used.
+- Do not use open database rules in production.

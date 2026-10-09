@@ -1,0 +1,7 @@
+syntax = "proto3";
+package rental_device;
+option java_package = "com.RentalLauncher.app.proto";
+option java_multiple_files = true;
+message DeviceCommand { string commandType = 1; }
+message LocationData { double latitude=1; double longitude=2; float accuracy=3; int64 timestampSeconds=4; }
+message DeviceData { string deviceId=1; LocationData location=2; int32 batteryLevel=3; int64 lastUpdateSeconds=4; }
