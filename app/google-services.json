@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "644904174506",
+    "project_id": "rentallauncher-1447c",
+    "storage_bucket": "rentallauncher-1447c.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:644904174506:android:6eede73c1d669f680be1d3",
+        "android_client_info": {
+          "package_name": "com.RentalLauncher.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCKK2-PzONjOWQrEkllyZF90oCO4CVoE_A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
